@@ -1,52 +1,58 @@
 # Packet Tracer Static Routing Lab (Two-LAN Network)
 
-This project demonstrates how to design, configure, and troubleshoot a two-LAN network connected by two routers using **Cisco Packet Tracer**. The lab includes switch and router configuration, IP addressing, static routing, connectivity testing, and real troubleshooting of interface issues.
+This project demonstrates how to design, configure, and troubleshoot a two-LAN network connected by two routers using Cisco Packet Tracer. The lab includes switch and router configuration, IP addressing, static routing, connectivity testing, and hands-on troubleshooting of interface issues.
 
 This repository contains:
 - Full network topology  
-- All device configurations  
+- Device configurations  
 - Static routing setup  
-- Troubleshooting steps and solutions  
+- Troubleshooting steps  
 - Ping verification tests  
 - Screenshots documenting the entire build  
 
 ---
 
-# **Project Overview**
+# Project Overview
 
 This lab simulates two separate LANs connected through two routers:
 
-- **LAN A** → Router0 → Router1 → **LAN B**  
-- Each LAN has 2 PCs and 1 switch  
+- LAN A → Router0 → Router1 → LAN B  
+- Each LAN has two PCs and one switch  
 - Routers are connected via a GigabitEthernet crossover link  
-- Static routing is used to allow communication between LANs  
+- Static routing enables communication between the two networks  
 
-The goal was to:
+Objectives:
 1. Build the topology  
-2. Assign correct IP addressing  
+2. Assign IP addressing  
 3. Configure routers and interfaces  
 4. Add static routes  
 5. Test same-LAN and cross-LAN communication  
-6. Troubleshoot red/down interfaces  
+6. Troubleshoot down interfaces  
 7. Verify full connectivity  
 
 ---
 
-# **Final Network Topology**
+# Final Network Topology
 
 ### Initial Topology (Before Cabling)
 ![Initial Topology (Before Cabling)](screenshots/Initial%20Topology%20(Before%20Cabling).png)
 
 ---
 
-# **Physical Cabling Layout**
+# Physical Cabling Layout
 
 ### Completed Physical Topology (With Cables)
 ![Completed Physical Topology (With Cables)](screenshots/Completed%20Physical%20Topology%20(With%20Cables).png)
 
 ---
 
-# **IP Addressing Plan**
+# Final Network State (All Links Up)
+
+![Final Network State — All Links Up (Green)](screenshots/Final%20Network%20State%20—%20All%20Links%20Up%20(Green).png)
+
+---
+
+# IP Addressing Plan
 
 | Device | IP Address | Subnet Mask | Gateway |
 |--------|------------|-------------|---------|
@@ -61,88 +67,98 @@ The goal was to:
 
 ---
 
-# **Router Configuration Summary**
+# Router Configuration Summary
 
-## **Router0**
+## Router0
+```bash
+enable
+configure terminal
+
+interface gigabitEthernet0/0
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+
+interface gigabitEthernet0/1
+ ip address 10.10.10.1 255.255.255.252
+ no shutdown
+
+exit
+ip route 192.168.20.0 255.255.255.0 10.10.10.2
+```
+
+---
+
+## Router1
+```bash
+enable
+configure terminal
+
+interface gigabitEthernet0/0
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+
+interface gigabitEthernet0/1
+ ip address 10.10.10.2 255.255.255.252
+ no shutdown
+
+exit
+ip route 192.168.10.0 255.255.255.0 10.10.10.1
+```
+
+---
+
+# Connectivity Testing
+
+## Same-LAN Ping Tests  
+- PC0 → PC1: Success  
+- PC2 → PC3: Success  
+
+## Cross-LAN Ping Tests  
+After static routing was configured:
+
+- PC0 → PC2: Success  
+- PC0 → PC3: Success  
+- PC1 → PC2: Success  
+- PC1 → PC3: Success  
+
+---
+
+# Troubleshooting Summary
+
+Issue Encountered:  
+Router1 G0/0 and the switch port were initially down (red). This prevented cross-network communication.
+
+Fix Applied:
 ```bash
 enable
 configure terminal
 interface gigabitEthernet0/0
- ip address 192.168.10.1 255.255.255.0
  no shutdown
-interface gigabitEthernet0/1
- ip address 10.10.10.1 255.255.255.252
- no shutdown
-exit
-ip route 192.168.20.0 255.255.255.0 10.10.10.2
+```
 
-enable
-configure terminal
-interface gigabitEthernet0/0
- ip address 192.168.20.1 255.255.255.0
- no shutdown
-interface gigabitEthernet0/1
- ip address 10.10.10.2 255.255.255.252
- no shutdown
-exit
-ip route 192.168.10.0 255.255.255.0 10.10.10.1
+After enabling the interface, the link turned green and routing succeeded.
 
+---
 
-Connectivity Testing
+# Cross-Network Ping Output
 
-After configuring devices and static routes, the following tests were performed:
+![Cross Network Ping Output](screenshots/03-cross-network-ping-success.png)
 
-Same LAN Ping Tests
+---
 
-PC0 → PC1 = Success
+# Skills Demonstrated
+- Network topology design  
+- Subnetting and IP addressing  
+- Router and switch configuration  
+- Troubleshooting down interfaces  
+- Static routing  
+- End-to-end connectivity testing  
+- Professional documentation and GitHub project organization  
 
-PC2 → PC3 = Success
+---
 
-Cross LAN Ping Tests (After Static Routes)
-
-PC0 → PC2
-
-PC0 → PC3
-
-PC1 → PC2
-
-PC1 → PC3
-All = Success
-
-
-Troubleshooting Summary
-
-During the lab, Router1’s G0/0 interface and the switch port initially showed red/down.
-
-Fix applied:
-
-enable
-configure terminal
-interface gigabitEthernet0/0
- no shutdown
-
-Final Connectivity Test  Cross Network Ping
-Cross LAN Ping Output
-
-All devices across both LANs successfully communicated, confirming correct static routing.
-
-
-Skills Demonstrated
-
-Network topology design
-
-Subnetting and IP addressing
-
-Router and switch configuration
-
-Interface troubleshooting
-
-Static routing
-
-End to end connectivity testing
-
-Repository Structure
-
+# Repository Structure
+```
 packet-tracer-static-routing-lab/
 │
 ├── README.md
@@ -151,16 +167,16 @@ packet-tracer-static-routing-lab/
     ├── Completed Physical Topology (With Cables).png
     ├── Final Network State — All Links Up (Green).png
     └── 03-cross-network-ping-success.png
+```
 
+---
 
-Conclusion
+# Conclusion
 
-This lab demonstrated the process of designing and configuring a multi LAN network using Cisco Packet Tracer.
-Troubleshooting interface issues, applying static routes, and validating communication across networks.
+This lab demonstrates how to build and configure a routed two-LAN network in Cisco Packet Tracer using static routes. After resolving interface issues and verifying routing tables, full communication between all devices was successfully achieved.
 
+---
 
-Contact/Portfolio
-
-If you’d like to explore more of my labs or reach out:
+# Contact / Portfolio
 
 GitHub: https://github.com/austingtucker437
