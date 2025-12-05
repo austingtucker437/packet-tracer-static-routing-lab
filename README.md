@@ -19,7 +19,7 @@ This lab simulates two separate LANs connected through two routers:
 - LAN A → Router0 → Router1 → LAN B  
 - Each LAN has two PCs and one switch  
 - Routers are connected via a GigabitEthernet crossover link  
-- Static routing enables communication between the two networks  
+- Static routing enables communication between the networks  
 
 Objectives:
 1. Build the topology  
@@ -109,11 +109,11 @@ ip route 192.168.10.0 255.255.255.0 10.10.10.1
 
 # Connectivity Testing
 
-## Same-LAN Ping Tests  
+## Same-LAN Ping Tests
 - PC0 → PC1: Success  
 - PC2 → PC3: Success  
 
-## Cross-LAN Ping Tests  
+## Cross-LAN Ping Tests
 After static routing was configured:
 
 - PC0 → PC2: Success  
@@ -126,7 +126,7 @@ After static routing was configured:
 # Troubleshooting Summary
 
 Issue Encountered:  
-Router1 G0/0 and the switch port were initially down (red). This prevented cross-network communication.
+Router1 G0/0 and the switch port were initially down (red), preventing communication between the two networks.
 
 Fix Applied:
 ```bash
@@ -136,7 +136,7 @@ interface gigabitEthernet0/0
  no shutdown
 ```
 
-After enabling the interface, the link turned green and routing succeeded.
+After enabling the interface, the link turned green and cross-network routing began working correctly.
 
 ---
 
@@ -150,10 +150,10 @@ After enabling the interface, the link turned green and routing succeeded.
 - Network topology design  
 - Subnetting and IP addressing  
 - Router and switch configuration  
-- Troubleshooting down interfaces  
+- Troubleshooting interface issues  
 - Static routing  
-- End-to-end connectivity testing  
-- Professional documentation and GitHub project organization  
+- End-to-end connectivity verification  
+- Professional documentation using GitHub  
 
 ---
 
@@ -173,7 +173,8 @@ packet-tracer-static-routing-lab/
 
 # Conclusion
 
-This lab demonstrates how to build and configure a routed two-LAN network in Cisco Packet Tracer using static routes. After resolving interface issues and verifying routing tables, full communication between all devices was successfully achieved.
+This lab demonstrates how to design, build, and configure a two-LAN network in Cisco Packet Tracer using static routing.  
+After resolving interface issues and verifying routing tables, full communication between all devices across both LANs was successfully achieved.
 
 ---
 
