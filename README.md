@@ -41,7 +41,7 @@ The goal was to:
 
 # **Physical Cabling Layout**
 
-### 📷 Completed Physical Topology (With Cables)
+### Completed Physical Topology (With Cables)
 ![Completed Physical Topology (With Cables)](screenshots/Completed%20Physical%20Topology%20(With%20Cables).png)
 
 ---
